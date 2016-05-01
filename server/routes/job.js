@@ -128,6 +128,8 @@ module.exports = function (io) {
     router.get('/:id/comments', function (req, res) {
         Comment.find({job: req.params.id})
             .populate('user')
+            .sort({_id: -1})
+            .lean()
 
             .exec(function (err, comments) {
                 if (err) {
@@ -189,19 +191,7 @@ module.exports = function (io) {
 
 
     router.get('/users/:userId/likes', function (req, res) {
-
-        var search = {};
-        if (req.query.mid) {
-            search = {
-                _id: {
-                    $lt: req.query.mid
-                }
-            }
-        }
-
-
-        Like.find({user: req.params.userId}, search)
-            .limit(6)
+Like.find({user: req.params.userId})
             .populate('job')
             .sort({_id: -1})
             .lean()
@@ -288,6 +278,7 @@ module.exports = function (io) {
         Notification.find({userto: req.params.id})
 
             .populate('job userfrom userto')
+
             .exec(function (err, notifications) {
                 if (err) {
                     return res.json({error: err});
@@ -315,6 +306,8 @@ module.exports = function (io) {
 
         Job.find({user: req.params.id})
             .populate('user')
+            .sort({_id: -1})
+            .lean()
             .exec(function (err, jobs) {
                 if (err) {
                     console.log(err);

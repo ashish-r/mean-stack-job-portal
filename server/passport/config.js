@@ -12,9 +12,9 @@ module.exports = {
         done(null, user._id);
     },
     facebookStrategy: new FacebookStrategy({
-        clientID: '1528040984167334',
-        clientSecret: '00b4a6e7f4eb3e73adbd87482e0d278b',
-        callbackURL: "http://localhost:3000/api/users/facebook/callback",
+        clientID: '271757209831174',
+        clientSecret: 'f220b7b975fb118c828a78bc48363190',
+        callbackURL: "http://172.28.176.97:3030/api/users/facebook/callback",
         profileFields: ['id', 'displayName', 'picture', 'emails', 'gender', 'about', 'bio']
     }, function(accessToken, refreshToken, profile, cb) {
         var error = {error: 'Could not log in'};

@@ -125,37 +125,50 @@
             <div ng-view class="col-md-9 blog-main">
 
             </div>
-            <aside class="col-md-3 blog-aside">
+            <aside class="col-md-3 col-xs-12 blog-aside">
 
-                <div  class="aside-widget">
+                <div  class="aside-widget ">
                     <header>
                         <h3>Filter Jobs</h3>
                     </header>
-                    <div class="body">
+                    <div class="body ">
 
-                                          <div class="tales-searchbox">
+                        <div class="tales-searchbox col-xs-12">
 
-                                        <input class="searchfield" id="searchbox" type="text" placeholder="Search">
-
-                                </div>
-                                          <div class="tales-searchbox">
-
-                                        <input class="searchfield" id="searchbox" type="text" placeholder="Search">
-
-                                </div>
-                                          <div class="tales-searchbox">
-
-                                        <input class="searchfield" id="searchbox" type="text" placeholder="Search">
-
-                                </div>
-                                          <div class="tales-searchbox">
-
-                                        <input class="searchfield" id="searchbox" type="text" placeholder="Search">
+                            <label>Service: </label><br><select  class="searchfield" id="searchbox" type="text" placeholder="Search">
+                                <option disabled selected hidden>Any</option>
+                            <option>Carpenter</option>
+                            <option>Cook</option>
+                            <option>Driver</option>
+                            <option>Electrician</option>
+                            <option>Home tutor</option>
+                            <option>Interior designer</option>
+                            <option>Mechanic</option>
+                            <option>Painter</option>
+                            <option>Plumber</option>
+                            </select>
 
                                 </div>
-                                           <div class="tales-searchbox">
+                        <div class="tales-searchbox col-xs-12">
 
-                                        <input class="searchfield" id="searchbox" type="text" placeholder="Search">
+                            <label>City: </label><br><select class="searchfield" id="searchbox" type="text" placeholder="Search">
+                                <option disabled selected hidden>Any</option>
+                                <option>Banglore</option>
+                                <option>Chennai</option>
+                                <option>Delhi</option>
+                                <option>Kolkata</option>
+                                <option>Mumbai</option>
+                            </select>
+
+                                </div>
+                        <div class="tales-searchbox col-xs-12">
+
+                            <label>Minimum Price: </label><br><input class="searchfield" id="searchbox" type="number" min="100" placeholder="100">
+
+                                </div>
+                                          <div class="tales-searchbox col-xs-12">
+
+                                              <label>No. Of Persons: </label><br><input class="searchfield" id="searchbox" type="number" min="1" placeholder="No Preference">
 
                                 </div>
 

@@ -7,19 +7,20 @@
             <a href="/jobs/{{job._id}}/#top">
             <header>
 
-                <h3>{{job.service}}</h3>
-                <span class="meta">₹{{job.price_min}} - ₹{{job.price_max}}<br> {{job.city}}</span>
+                <h3>{{job.service| uppercase}}</h3>
+                <span class="meta">₹{{job.price_min}} - ₹{{job.price_max}}<br> {{job.city | uppercase}}</span>
                 <hr>
 
             </header>
             </a>
 
-            <div  class="body">
+            <div  class="body"  style="text-align:center">
 
                 <b>No. of person: </b>{{job.person}}<br>
-                <b>Starting: </b>{{timeInWords(job.begin)}}
+                <b><i class="fa fa-calendar"></i> </b> &nbsp{{job.begin | date}}
                 <hr>
-                <div class="col-md-8 col-sm-8" >
+
+                <div class="col-md-8 col-sm-8 col-xs-8" align ="left">
                     <a href="/user/{{job.user._id}}/jobs/#top">
                         <img src="{{job.user.profile_pic}}" width=25" style="-webkit-border-radius: 20px;"/></a>
                     &nbsp  &nbsp <span ng-if ="job.user._id == currentUser._id" class="dropdown active dropdown-toggle">
@@ -35,12 +36,12 @@
                         </ul>
                     </span>
                     </div>
-                <div class="col-md-4 col-sm-4" align ="right">
+                <div class="col-md-4 col-sm-4 col-xs-4" align ="right">
 
                 <a href =""><i ng-click="postLike(job._id); job.like = !job.like" ng-class="job.like ? 'fa fa-star' : 'fa fa-star-o'" aria-hidden="true"></i></a>
 
                 </div>
-                <br>
+                    <br>
 
             </div>
             <div class="clearfix">

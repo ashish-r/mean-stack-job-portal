@@ -104,7 +104,7 @@ app.controller('JobController', function ($scope, $rootScope, $http, socket, $ro
     }
 
     socket.on('comment', function (comment) {
-        $scope.comments.push(comment);
+        $scope.comments.unshift(comment);
     });
 
 
@@ -121,7 +121,6 @@ app.controller('JobController', function ($scope, $rootScope, $http, socket, $ro
             console.log(comment);
             if (!comment.error) {
                 $scope.commentBody = '';
-                $scope.comments.unshift(comment)
             }
         });
 
@@ -138,37 +137,8 @@ app.controller('UserJobController', function ($scope, $rootScope, socket, $http,
 
 
 app.controller('MarkJobController', function ($scope, $rootScope, socket, $http, $routeParams, MarkedJob, Job, Like) {
-
-
-    $scope.marks = [];
-    $scope.lastMarkId = undefined;
-    $scope.loadBool = false;
-    $scope.marks = MarkedJob.query({userId: $routeParams.userId}, function(marks) {
-        for (var i in marks) {
-            if (marks[i]._id) {
-                $scope.lastMarkId = marks[marks.length - 1]._id;
-            }
-        }
-        $scope.loadBool = true;
-    });
-
-    $scope.loadMore = function() {
-        if (!$scope.loadBool) {
-            return;
-        }
-        $scope.loadBool = false;
-        MarkedJob.query({userId: $routeParams.userId, mid: $scope.lastMarkId
-        }, function(marks) {
-            for (var i in marks) {
-                if (marks[i]._id) {
-                    $scope.lastMarkId = marks[i]._id;
-                    $scope.marks.push(marks[i]);
-                }
-            }
-            $scope.loadBool = true;
-        });
-
-    };
+    var likeUnmark = false;
+    $scope.marks = MarkedJob.query({userId: $routeParams.userId});
 
 $rootScope.timeInWords = function (date) {
         return moment(date).fromNow();
@@ -219,7 +189,7 @@ app.controller('ViewController', function ($scope, $routeParams, $rootScope, $ht
             for (var i in jobs) {
                 if (jobs[i]._id) {
                     $scope.lastJobId = jobs[i]._id;
-                    $scope.jobs.push(jobs[i]);
+                    $scope.jobs.unshift(jobs[i]);
                 }
             }
             $scope.loadBool = true;
@@ -272,11 +242,11 @@ app.controller('ViewController', function ($scope, $routeParams, $rootScope, $ht
     };
 
     socket.on('notification', function (notification) {
-        $scope.notifications.push(notification);
+        $scope.notifications.unshift(notification);
     });
 
     socket.on('job', function (job) {
-        $scope.jobs.push(job);
+        $scope.jobs.unshift(job);
     });
 
     $rootScope.postLike = function (jobid) {
@@ -303,7 +273,7 @@ app.config(function ($routeProvider, $locationProvider) {
             controller: 'ViewController'
         })
         .when('/postjob', {
-            templateUrl: '/html/demo.html',
+            templateUrl: '/html/form.html',
             controller: 'JobController'
         })
         .when('/jobs/:jobid', {
