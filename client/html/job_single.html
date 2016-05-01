@@ -1,0 +1,75 @@
+<article class="blog-post">
+    <header>
+        <h1>{{jobSingle.service}}</h1><hr>
+<h2>₹{{jobSingle.price_min}} - ₹{{jobSingle.price_max}}, {{jobSingle.city}}</h2>
+        <div class="lead-image">
+            <img src="/assets/img/jobs/{{jobSingle.service.replace(' ', '').toLowerCase()}}.jpg" alt="{{jobSingle.service}}" class="img-responsive">
+            <div class="meta clearfix">
+
+                <div class="author">
+                    <img src="{{jobSingle.user.profile_pic}}" width=35" style="-webkit-border-radius: 20px;"/>
+                    <span class="data">{{jobSingle.user.name}}</span>
+                </div>
+                <div class="date">
+                    <i class="fa fa-calendar"></i>
+                    <span class="data">{{timeInWords(jobSingle.begin)}}</span>
+                </div>
+                <div class="comments">
+                    <i class="fa fa-user"></i>
+                    <span class="data">{{jobSingle.person}} Person(s)</span>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="body">
+
+
+
+        <p>{{jobSingle.description}}<br>
+
+
+            <b>Locality: </b>{{jobSingle.locality}}<br>
+
+            <b>Duration: </b>{{jobSingle.duration}}&nbspmonths </p>
+
+    </div>
+</article>
+
+
+
+<aside class="comments" id="comments">
+    <hr>
+
+    <h2><i class="fa fa-comments"></i> {{comments.length}} Replies</h2>
+
+    <article class="comment" ng-repeat="comment in comments">
+        <header class="clearfix">
+            <img src="{{comment.user.profile_pic}}" alt="{{comment.user.name}}" class="avatar">
+            <div class="meta">
+                <h3>{{comment.user.name}}</h3>
+                                    <span class="date">
+                                        {{timeInWords(comment.created_at)}}
+                                    </span>
+
+
+
+            </div>
+        </header>
+        <div class="body">
+            {{comment.body}}
+        </div>
+    </article>
+
+
+</aside>
+
+<aside class="create-comment" id="create-comment">
+
+        <textarea ng-model="commentBody" rows="5" name="message" id="comment-body" placeholder="Reply Here..." class="form-control input-lg"></textarea>
+
+        <div class="buttons clearfix">
+            <button class="btn btn-xlarge btn-tales-two">Cancel</button>
+            <button type="submit" ng-click="postComment()" class="btn btn-xlarge btn-tales-one">Submit</button>
+        </div>
+
+</aside>

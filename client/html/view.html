@@ -1,0 +1,62 @@
+<div class="row">
+
+    <div class="col-md-4 col-sm-4" ng-repeat-start="job in jobs" ng-init='likeCheck=isLiked(job._id)'>
+
+        <article class="blog-teaser">
+
+            <a href="/jobs/{{job._id}}/#top">
+            <header>
+
+                <h3>{{job.service}}</h3>
+                <span class="meta">₹{{job.price_min}} - ₹{{job.price_max}}<br> {{job.city}}</span>
+                <hr>
+
+            </header>
+            </a>
+
+            <div  class="body">
+
+                <b>No. of person: </b>{{job.person}}<br>
+                <b>Starting: </b>{{timeInWords(job.begin)}}
+                <hr>
+                <div class="col-md-8 col-sm-8" >
+                    <a href="/user/{{job.user._id}}/jobs/#top">
+                        <img src="{{job.user.profile_pic}}" width=25" style="-webkit-border-radius: 20px;"/></a>
+                    &nbsp  &nbsp <span ng-if ="job.user._id == currentUser._id" class="dropdown active dropdown-toggle">
+                        <a class="dropdown-toggle"
+                           data-toggle="dropdown"
+                           href="#">
+                            <i class="fa fa-bars"  aria-hidden="true"></i>
+
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Edit</a></li>
+                            <li><a ng-click="delJob(job._id, $index)" href="#">Delete</a></li>
+                        </ul>
+                    </span>
+                    </div>
+                <div class="col-md-4 col-sm-4" align ="right">
+
+                <a href =""><i ng-click="postLike(job._id); job.like = !job.like" ng-class="job.like ? 'fa fa-star' : 'fa fa-star-o'" aria-hidden="true"></i></a>
+
+                </div>
+                <br>
+
+            </div>
+            <div class="clearfix">
+            </div>
+        </article>
+
+
+    </div>
+    <div ng-repeat-end>
+        <div class="clear clearfix" ng-if="$index % 3 == 2">&nbsp;</div>
+    </div>
+</div>
+
+
+
+<div class="paging">
+    <a href="" ng-click ="loadMore()" class="newer"> More &nbsp<i class="fa fa-long-arrow-right"></i></a>
+
+</div>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" ng-app="myApp" class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <title>Freelancer</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+
+    <!-- Bootstrap styles -->
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/bootstrap-theme.min.css">
+
+    <!-- Font-Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+
+    <!-- Google Webfonts -->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600%7CPT+Serif:400,400italic' rel='stylesheet' type='text/css'>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="/assets/css/styles-bluegreen.css" id="theme-styles">
+
+    <!--[if lt IE 9]>
+
+    <![endif]-->
+
+    <script src="http://code.jquery.com/jquery-2.2.1.min.js"></script>
+    <script>window.jQuery || document.write('<script src="/assets/js/jquery.min.js"><\/script>')</script>
+
+    <script src="/assets/js/cookie-js.js" type="text/javascript"></script>
+<!--Font for the overlay screens-->
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700' rel='stylesheet' type='text/css'>
+
+    <script src="/assets/js/moment.js"></script>
+    <script src="/assets/js/angular.js"></script>
+    <script src="/assets/js/angular-resource.js"></script>
+    <script src="/assets/js/angular-route.js"></script>
+    <script src="/assets/js/app.js"></script>
+    <script src="/assets/js/socketio.js"></script>
+    <script type='text/javascript' src='/assets/js/ng-infinite-scroll.min.js'></script>
+
+
+</head>
+<body>
+
+<!-- Colorswitcher -->
+
+
+
+
+
+
+<header id ="top">
+    <div class="widewrapper masthead">
+        <div class="container">
+            <a href="/" id="logo">
+                Freelancer
+                <!--Use the following line instead if you want to use an image logo-->
+                <!--<img src="img/tales-logo.png" alt="Tales Blog">-->
+            </a>
+
+            <div id="mobile-nav-toggle" class="pull-right">
+                <a href="" data-toggle="collapse" data-target=".tales-nav .navbar-collapse">
+                    <i class="fa fa-bars"></i>
+                </a>
+                <span ng-if="notifications.length > 0">{{notifications.length}}</span>
+            </div>
+
+            <nav class="pull-right tales-nav">
+                <div class="collapse navbar-collapse">
+                    <ul class="nav nav-pills navbar-nav">
+                        <li class="dropdown">
+                            <a class="dropdown-toggle"
+                               data-toggle="dropdown"
+                               href="#">
+                                <i class="fa fa-bell" aria-hidden="true"></i> <span ng-if="notifications.length > 0">{{notifications.length}}</span>
+
+                            </a>
+                            <ul  class="dropdown-menu">
+                                <li ng-if="notifications.length < 1"><a href="#">No new Notifications! </a></li>
+                                <li ng-repeat="notification in notifications"><a ng-click="checkNoti(notification._id, $index)" href="/jobs/{{notification.job._id}}">{{notification.userfrom.name}} Commented on your {{notification.job.service}} Job</a></li>
+
+                            </ul>
+                        </li>
+
+                        <li class="active">
+                            <a href="/">
+                                Jobs
+                            </a>
+
+                        </li>
+                        <li>
+                            <a href="/postjob">Post &nbspJob</a>
+                        </li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle"
+                               data-toggle="dropdown"
+                               href="#">
+                                Activites
+                                <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/user/{{currentUser._id}}/jobs/#top">Jobs By Me</a></li>
+                                <li><a href="/user/{{currentUser._id}}/markedjobs/#top">Jobs Marked</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="/api/users/logout">Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+        </div>
+    </div>
+
+
+</header>
+
+<div class="widewrapper main">
+    <div class="container">
+        <div class="row">
+            <div ng-view class="col-md-9 blog-main">
+
+            </div>
+            <aside class="col-md-3 blog-aside">
+
+                <div  class="aside-widget">
+                    <header>
+                        <h3>Filter Jobs</h3>
+                    </header>
+                    <div class="body">
+
+                                          <div class="tales-searchbox">
+
+                                        <input class="searchfield" id="searchbox" type="text" placeholder="Search">
+
+                                </div>
+                                          <div class="tales-searchbox">
+
+                                        <input class="searchfield" id="searchbox" type="text" placeholder="Search">
+
+                                </div>
+                                          <div class="tales-searchbox">
+
+                                        <input class="searchfield" id="searchbox" type="text" placeholder="Search">
+
+                                </div>
+                                          <div class="tales-searchbox">
+
+                                        <input class="searchfield" id="searchbox" type="text" placeholder="Search">
+
+                                </div>
+                                           <div class="tales-searchbox">
+
+                                        <input class="searchfield" id="searchbox" type="text" placeholder="Search">
+
+                                </div>
+
+                        <div class="buttons clearfix">
+                            <i class="btn btn-xlarge btn-tales-ashish fa fa-search"></i>
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </aside>
+        </div>
+    </div>
+</div>
+
+<footer>
+
+    <div class="widewrapper copyright">
+        <div class="container">
+            <!--Note: Feel free to remove or change this link as you please. A link to HackerThemes is not required by any means-->
+            Designed by <a href="#" rel="nofollow">Ashish</a>
+        </div>
+    </div>
+</footer>
+
+
+<script src="/assets/js/bootstrap.min.js"></script>
+<script src="/assets/js/modernizr-custom.js"></script>
+</body>
+</html>
