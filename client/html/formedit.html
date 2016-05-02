@@ -4,7 +4,7 @@
 <div class="form-group jobform col-lg-6">
     <label class="col-lg-2 control-label">Service</label>
     <div class="col-lg-10">
-        <select class="form-control"  ng-model="job.service">
+        <select class="form-control"  ng-model="jobs[index].service">
             <option>Carpenter</option>
             <option>Cook</option>
             <option>Driver</option>
@@ -21,7 +21,7 @@
 <div class="form-group jobform col-lg-6">
     <label class="col-lg-2 control-label">City</label>
     <div class="col-lg-10">
-        <select class="form-control"  ng-model="job.city">
+        <select class="form-control"  ng-model="jobs[index].city">
             <option>Banglore</option>
             <option>Chennai</option>
             <option>Delhi</option>
@@ -34,7 +34,7 @@
 <div class="form-group jobform col-lg-6">
     <label class="col-lg-5 control-label">Minimum Price</label>
     <div class="col-lg-7">
-        <input type="number" class="form-control" min="100" ng-model="job.price_min"/>
+        <input type="number" class="form-control" min="100" ng-model="jobs[index].price_min"/>
     </div>
 </div>
 
@@ -42,14 +42,14 @@
 <div class="form-group jobform col-lg-6">
     <label class="col-lg-5 control-label">Maximum Price</label>
     <div class="col-lg-7">
-        <input type="number" class="form-control" min="100" ng-model="job.price_max"/>
+        <input type="number" class="form-control" min="100" ng-model="jobs[index].price_max"/>
     </div>
 </div>
 
 <div class="form-group jobform col-lg-12">
     <label  class="col-lg-4 control-label">Description</label>
     <div class="col-lg-12">
-        <textarea rows="3" ng-model="job.description" class="form-control input-lg"></textarea>
+        <textarea rows="3" ng-model="jobs[index].description" class="form-control input-lg"></textarea>
         <span class="help-block">Max length: 100 words</span>
     </div>
 </div>
@@ -57,28 +57,28 @@
 <div class="form-group  jobform col-lg-6">
     <label class="col-lg-3 control-label">Person(s)</label>
     <div class="col-lg-9">
-        <input type="number" class="form-control" min="1" ng-model="job.person"/>
+        <input type="number" class="form-control" min="1" ng-model="jobs[index].person"/>
     </div>
 </div>
 
 <div class="form-group  jobform col-lg-6">
     <label class="col-lg-3 control-label">Locality</label>
     <div class="col-lg-9">
-        <input type="text" class="form-control" ng-model="job.locality"/>
+        <input type="text" class="form-control" ng-model="jobs[index].locality"/>
     </div>
 </div>
 
 <div class="form-group jobform col-lg-6">
     <label class="col-lg-4 control-label">Duration<br>(in months)</label>
     <div class="col-lg-8">
-        <input type="number" class="form-control" min="1" ng-model="job.duration"/>
+        <input type="number" class="form-control" min="1" ng-model="jobs[index].duration"/>
 
     </div>
 </div>
 <div class="form-group jobform col-lg-6">
     <label class="col-lg-3 control-label">Begin</label>
     <div class="col-lg-9">
-        <input type="date" class="form-control"  ng-model="job.begin"/>
+        <input type="date" class="form-control"  ng-model="jobs[index].begin"/>
     </div>
 </div>
 
@@ -86,7 +86,7 @@
 <div class="buttons clearfix form-group formbutton">
 
     <button href ="" ng-click="canceleditJob()" class="btn btn-xlarge btn-tales-two">Cancel</button>
-    <button type="submit" ng-click="updateEditJob(job._id, job)" class="btn btn-xlarge btn-tales-one">Submit</button>
+    <button type="submit" ng-click="updateEditJob(jobs[index]._id, jobs[index])" class="btn btn-xlarge btn-tales-one">Submit</button>
 </div>
 
 
