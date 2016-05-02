@@ -942,6 +942,7 @@ aside.comments .comment header .meta a {
 aside.comments .comment .body {
   margin-top: 10px;
   margin-left: 100px;
+  margin-bottom: 50px
 }
 /* Add commment form */
 .create-comment input,

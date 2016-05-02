@@ -18,7 +18,24 @@
                     <i class="fa fa-user"></i>
                     <span class="data">{{jobSingle.person}} Person(s)</span>
                 </div>
-            </div>
+                <div class="comments">
+                <a href =""><i ng-click="postLike(job._id); job.like = !job.like" ng-class="job.like ? 'fa fa-star' : 'fa fa-star-o'" aria-hidden="true"></i></a>
+                </div>
+                <div class="comments" ng-if ="mark.job.user._id == currentUser._id" >
+                <span class="dropdown active dropdown-toggle">
+                        <a class="dropdown-toggle"
+                           data-toggle="dropdown"
+                           href="">
+                            <i class="fa fa-bars"  aria-hidden="true"></i>
+
+                        </a>
+                        <ul class="dropdown-menu" >
+                            <li ><a style="color:#262626" href="">Edit</a></li>
+                            <li ><a style="color:#262626" ng-click="delJob(mark.job._id, $index)" href="">Delete</a></li>
+                        </ul>
+                    </span>
+                </div>
+                </div>
         </div>
     </header>
     <div class="body">
@@ -36,12 +53,11 @@
 
 </article>
 
-<aside class="create-comment" id="create-comment">
+<aside class="create-comment" >
 
-    <textarea ng-model="commentBody" rows="5" name="message" id="comment-body" placeholder="Reply Here..." class="form-control input-lg"></textarea>
-
+    <textarea ng-model="commentBody" rows="5"  placeholder="Reply Here..." class="form-control input-lg"></textarea>
     <div class="buttons clearfix">
-        <button class="btn btn-xlarge btn-tales-two">Cancel</button>
+        <button ng-click="cancelComment()" class="btn btn-xlarge btn-tales-two">Cancel</button>
         <button type="submit" ng-click="postComment()" class="btn btn-xlarge btn-tales-one">Submit</button>
     </div>
 
@@ -52,7 +68,8 @@
 
     <h2><i class="fa fa-comments"></i> {{comments.length}} Replies</h2>
     <article class="comment" ng-repeat="comment in comments">
-        <header class="clearfix">
+        <div ng-hide="showEditBox[$index]">
+        <header class="clearfix col-lg-11 col-md-11 col-sm-11 col-xs-11">
             <img src="{{comment.user.profile_pic}}" alt="{{comment.user.name}}" class="avatar">
             <div class="meta">
                 <h3>{{comment.user.name}}</h3>
@@ -64,9 +81,34 @@
 
             </div>
         </header>
-        <div class="body">
+        <div class=" col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                      <span class="dropdown active dropdown-toggle" ng-if ="jobSingle.user._id == currentUser._id || comment.user._id == currentUser._id">
+                        <a class="dropdown-toggle"
+                           data-toggle="dropdown"
+                           href="">
+                            <i class="fa fa-bars"  aria-hidden="true"></i>
+
+                        </a>
+                        <ul class="dropdown-menu" >
+                            <li ><a style="color:#262626" ng-click="showEditBoxfunction($index)" href="">Edit</a></li>
+                            <li ><a style="color:#262626" ng-click="delComment(jobSingle._id, comment._id, $index)" href="">Delete</a></li>
+                        </ul>
+                    </span>
+
+            </div>
+
+        <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 body">
             {{comment.body}}
         </div>
+        </div>
+
+        <aside ng-show="showEditBox[$index]" class="create-comment" >
+        <textarea ng-model="comment.body" rows="5"  placeholder="Reply Here..." class="form-control input-lg"></textarea>
+        <div class="buttons clearfix">
+            <button ng-click="showEditBoxfunction($index)" class="btn btn-xlarge btn-tales-two">Cancel</button>
+            <button type="submit" ng-click="updateComment(jobSingle._id, comment, $index)" class="btn btn-xlarge btn-tales-one">Submit</button>
+        </div>
+            </aside>
     </article>
 
 

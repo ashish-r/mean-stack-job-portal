@@ -52,4 +52,11 @@ router.get('/dlogin', function(req, res) {
         res.json(req.user);
     });
 });
+
+//logout
+router.get('/logout', function(req, res) {
+    req.logout();
+    res.send({success: 'Logout successful'});
+});
+
 module.exports = router;

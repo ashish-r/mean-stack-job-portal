@@ -90,12 +90,18 @@ module.exports = function (io) {
     })
 
     router.put('/:id', function (req, res) {
+        var jobEdit = {};
+        jobEdit.begin = req.body.begin;
+        jobEdit.city = req.body.city;
+        jobEdit.description = req.body.description;
+        jobEdit.duration = req.body.duration;
+        jobEdit.locality = req.body.locality;
+        jobEdit.person = req.body.person;
+        jobEdit.price_max = req.body.price_max;
+        jobEdit.price_min = req.body.price_min;
+        jobEdit.service = req.body.service;
 
-        Job.findOneAndUpdate({_id: req.params.id}, {duration: req.body.job},
-            {person: req.body.job}, {description: req.body.job}, {price_min: req.body.job},
-            {price_max: req.body.job}, {locality: req.body.job}, {begin: req.body.job}, {name: req.body.job},
-            {name: req.body.job},
-            function (err, job) {
+        Job.findOneAndUpdate({_id: req.params.id}, jobEdit, function (err, job) {
                 if (err) {
                     return res.json(err);
                 }
@@ -124,6 +130,26 @@ module.exports = function (io) {
         })
     });
 
+    router.delete('/:id/comments/:cid', function (req, res) {
+        Comment.findOneAndRemove({_id: req.params.cid}, function (err, comment) {
+            if (err) {
+                return res.json(err);
+            }
+            return res.json(comment);
+        })
+    });
+
+    router.put('/:id/comments/:cid', function(req, res, next) {
+        var commentEdit = {};
+        commentEdit.body = req.body.body;
+
+        Comment.findByIdAndUpdate({_id: req.params.cid}, commentEdit, function(err, comment) {
+            if (err) {
+                return res.send(err);
+            }
+            return res.send(comment);
+        });
+    });
 
     router.get('/:id/comments', function (req, res) {
         Comment.find({job: req.params.id})

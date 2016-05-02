@@ -66,7 +66,7 @@ app.factory('Notification', function ($resource) {
 );
 
 app.factory('Comment', function ($resource) {
-        return $resource('/api/jobs/:jid/comments', null, {
+        return $resource('/api/jobs/:jid/comments/:cid', null, {
             'update': {method: 'PUT'}
         });
     }
@@ -74,11 +74,27 @@ app.factory('Comment', function ($resource) {
 
 app.controller('JobController', function ($scope, $rootScope, $http, socket, $routeParams, Job, Comment, Notification) {
     $scope.jobObject = {};
+    $scope.showEditBox = [];
     if ($routeParams.jobid) {
         $scope.jobSingle = Job.get({jobid: $routeParams.jobid});
         $scope.comments = Comment.query({jid: $routeParams.jobid});
 
     }
+
+    $scope.cancelpostJob = function(){
+        $scope.jobObject.begin='';
+        $scope.jobObject.city='';
+        $scope.jobObject.description='';
+        $scope.jobObject.duration='';
+        $scope.jobObject.locality ='';
+        $scope.jobObject.person ='';
+        $scope.jobObject.price_max ='';
+        $scope.jobObject.price_min ='';
+        $scope.jobObject.service ='';
+
+
+    }
+
     $scope.postJob = function () {
         var newJob = new Job();
         newJob.begin = $scope.jobObject.begin;
@@ -121,16 +137,53 @@ app.controller('JobController', function ($scope, $rootScope, $http, socket, $ro
             console.log(comment);
             if (!comment.error) {
                 $scope.commentBody = '';
+                $scope.commentBox = '';
             }
         });
 
 
     }
 
+    $scope.cancelComment = function () {
+        $scope.commentBody = '';
+        $scope.commentBox = '';
+    }
+
+
+    $scope.showEditBoxfunction = function(index) {
+        $scope.showEditBox[index] = !$scope.showEditBox[index];
+    }
+
+//edit comment
+    $scope.updateComment = function(jid, comment, index) {
+        var updateComment = new Comment();
+        updateComment.body = $scope.editComment;
+        Comment.update({
+            jid: jid,
+            cid: comment._id
+        }, comment, function(comment) {
+            console.log(comment);
+            $scope.showEditBoxfunction(index);
+        }, function(err) {
+            console.log(err);
+        })
+    }
+
+
+
+    $scope.delComment = function (jid, comId, index) {
+        Comment.remove({jid: jid, cid: comId}, function (comment, err) {
+            if (comment.error) {
+                console.log(err);
+            }
+            $scope.comments.splice(index, 1);
+        });
+    };
+
 });
 
 app.controller('UserJobController', function ($scope, $rootScope, socket, $http, $routeParams, UserJob) {
-    $scope.jobs = UserJob.query({userId: $routeParams.userId});
+    $rootScope.jobs = UserJob.query({userId: $routeParams.userId});
 
 
 });
@@ -166,10 +219,10 @@ $rootScope.timeInWords = function (date) {
 });
 
 app.controller('ViewController', function ($scope, $routeParams, $rootScope, $http, Job, socket, Like, Notification) {
-    $scope.jobs = [];
+    $rootScope.jobs = [];
     $scope.lastJobId = undefined;
     $scope.loadBool = false;
-    $scope.jobs = Job.query(function(jobs) {
+    $rootScope.jobs = Job.query(function(jobs) {
         for (var i in jobs) {
             if (jobs[i]._id) {
                 $scope.lastJobId = jobs[jobs.length - 1]._id;
@@ -177,6 +230,26 @@ app.controller('ViewController', function ($scope, $routeParams, $rootScope, $ht
         }
         $scope.loadBool = true;
     });
+
+    //edit job
+    $rootScope.editJob = function(index) {
+        $rootScope.index = index;
+    }
+
+    $rootScope.updateEditJob= function(jid, job) {
+        Job.update({jobid: jid}, job, function(job) {
+            console.log(job);
+            window.location ="/"
+        }, function(err) {
+            console.log(err);
+        })
+
+    }
+
+    $rootScope.canceleditJob = function(){
+        window.location ='/';
+    }
+
 
     $scope.loadMore = function() {
         if (!$scope.loadBool) {
@@ -189,7 +262,7 @@ app.controller('ViewController', function ($scope, $routeParams, $rootScope, $ht
             for (var i in jobs) {
                 if (jobs[i]._id) {
                     $scope.lastJobId = jobs[i]._id;
-                    $scope.jobs.unshift(jobs[i]);
+                    $rootScope.jobs.unshift(jobs[i]);
                 }
             }
             $scope.loadBool = true;
@@ -207,7 +280,14 @@ app.controller('ViewController', function ($scope, $routeParams, $rootScope, $ht
             }, function (err) {
                 console.log(err);
             });
-            // What this function does
+            //logout function
+            $rootScope.logout = function() {
+                $http.get('/api/users/logout').then(function(response) {
+                    window.location.reload();
+                });
+            }
+
+            // Check Notifications
             $rootScope.checkNoti = function (notId, index) {
                 Notification.remove({nId: notId, userId: $rootScope.currentUser._id}, function (notification, err) {
                     if (notification.error) {
@@ -224,7 +304,7 @@ app.controller('ViewController', function ($scope, $routeParams, $rootScope, $ht
                     if (job.error) {
                         console.log(err);
                     }
-                    $scope.jobs.splice(index, 1);
+                    $rootScope.jobs.splice(index, 1);
                 });
             };
 
@@ -246,7 +326,7 @@ app.controller('ViewController', function ($scope, $routeParams, $rootScope, $ht
     });
 
     socket.on('job', function (job) {
-        $scope.jobs.unshift(job);
+        $rootScope.jobs.unshift(job);
     });
 
     $rootScope.postLike = function (jobid) {
@@ -275,6 +355,10 @@ app.config(function ($routeProvider, $locationProvider) {
         .when('/postjob', {
             templateUrl: '/html/form.html',
             controller: 'JobController'
+        })
+        .when('/editjob', {
+            templateUrl: '/html/formedit.html',
+            controller: 'ViewController'
         })
         .when('/jobs/:jobid', {
             templateUrl: '/html/job_single.html',

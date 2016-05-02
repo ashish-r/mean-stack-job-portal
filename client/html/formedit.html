@@ -1,0 +1,92 @@
+
+<legend>Edit Job</legend>
+
+<div class="form-group jobform col-lg-6">
+    <label class="col-lg-2 control-label">Service</label>
+    <div class="col-lg-10">
+        <select class="form-control"  ng-model="job.service">
+            <option>Carpenter</option>
+            <option>Cook</option>
+            <option>Driver</option>
+            <option>Electrician</option>
+            <option>Home tutor</option>
+            <option>Interior designer</option>
+            <option>Mechanic</option>
+            <option>Painter</option>
+            <option>Plumber</option>
+        </select>
+    </div>
+</div>
+
+<div class="form-group jobform col-lg-6">
+    <label class="col-lg-2 control-label">City</label>
+    <div class="col-lg-10">
+        <select class="form-control"  ng-model="job.city">
+            <option>Banglore</option>
+            <option>Chennai</option>
+            <option>Delhi</option>
+            <option>Kolkata</option>
+            <option>Mumbai</option>
+        </select>
+    </div>
+</div>
+
+<div class="form-group jobform col-lg-6">
+    <label class="col-lg-5 control-label">Minimum Price</label>
+    <div class="col-lg-7">
+        <input type="number" class="form-control" min="100" ng-model="job.price_min"/>
+    </div>
+</div>
+
+
+<div class="form-group jobform col-lg-6">
+    <label class="col-lg-5 control-label">Maximum Price</label>
+    <div class="col-lg-7">
+        <input type="number" class="form-control" min="100" ng-model="job.price_max"/>
+    </div>
+</div>
+
+<div class="form-group jobform col-lg-12">
+    <label  class="col-lg-4 control-label">Description</label>
+    <div class="col-lg-12">
+        <textarea rows="3" ng-model="job.description" class="form-control input-lg"></textarea>
+        <span class="help-block">Max length: 100 words</span>
+    </div>
+</div>
+
+<div class="form-group  jobform col-lg-6">
+    <label class="col-lg-3 control-label">Person(s)</label>
+    <div class="col-lg-9">
+        <input type="number" class="form-control" min="1" ng-model="job.person"/>
+    </div>
+</div>
+
+<div class="form-group  jobform col-lg-6">
+    <label class="col-lg-3 control-label">Locality</label>
+    <div class="col-lg-9">
+        <input type="text" class="form-control" ng-model="job.locality"/>
+    </div>
+</div>
+
+<div class="form-group jobform col-lg-6">
+    <label class="col-lg-4 control-label">Duration<br>(in months)</label>
+    <div class="col-lg-8">
+        <input type="number" class="form-control" min="1" ng-model="job.duration"/>
+
+    </div>
+</div>
+<div class="form-group jobform col-lg-6">
+    <label class="col-lg-3 control-label">Begin</label>
+    <div class="col-lg-9">
+        <input type="date" class="form-control"  ng-model="job.begin"/>
+    </div>
+</div>
+
+
+<div class="buttons clearfix form-group formbutton">
+
+    <button href ="" ng-click="canceleditJob()" class="btn btn-xlarge btn-tales-two">Cancel</button>
+    <button type="submit" ng-click="updateEditJob(job._id, job)" class="btn btn-xlarge btn-tales-one">Submit</button>
+</div>
+
+
