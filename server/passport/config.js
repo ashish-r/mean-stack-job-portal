@@ -14,7 +14,7 @@ module.exports = {
     facebookStrategy: new FacebookStrategy({
         clientID: '271757209831174',
         clientSecret: 'f220b7b975fb118c828a78bc48363190',
-        callbackURL: "https://freelancer-mean-stack-website.herokuapp.com/api/users/facebook/callback",
+        callbackURL: "https://freelancer-mean-stack.herokuapp.com/api/users/facebook/callback",
         profileFields: ['id', 'displayName', 'picture', 'emails', 'gender', 'about', 'bio']
     }, function(accessToken, refreshToken, profile, cb) {
         var error = {error: 'Could not log in'};
