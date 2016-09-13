@@ -19,7 +19,7 @@ app.io = io;
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 //mongoose
-mongoose.connect('mongodb://localhost/lkfnsafj');
+mongoose.connect('mongodb://ashish:freelancer12x01y@ds044699.mlab.com:44699/freelancer12x01y');
 // uncomment after placing your favicon in /public
 app.use(favicon(path.join(__dirname, '../client', 'favicon.ico')));
 app.use(logger('dev'));
