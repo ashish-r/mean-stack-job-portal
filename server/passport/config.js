@@ -12,8 +12,8 @@ module.exports = {
         done(null, user._id);
     },
     facebookStrategy: new FacebookStrategy({
-        clientID: '271757209831174',
-        clientSecret: 'f220b7b975fb118c828a78bc48363190',
+        clientID: '271839086596564',
+        clientSecret: '14d2921512efa8cb06732fd055c45422',
         callbackURL: "https://freelancer-mean-stack.herokuapp.com/api/users/facebook/callback",
         profileFields: ['id', 'displayName', 'picture', 'emails', 'gender', 'about', 'bio']
     }, function(accessToken, refreshToken, profile, cb) {
