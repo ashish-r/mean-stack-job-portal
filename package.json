@@ -14,7 +14,7 @@
     "ejs": "~2.3.3",
     "express": "~4.13.1",
     "express-session": "^1.13.0",
-    "mongoose": "^4.4.12",
+    "mongoose": "^5.7.7",
     "morgan": "~1.6.1",
     "nodemon": "^1.9.1",
     "passport-facebook": "^2.1.0",
